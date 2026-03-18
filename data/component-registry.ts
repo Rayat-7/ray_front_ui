@@ -13,6 +13,24 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     description: "A versatile button component with multiple variants and sizes.",
   },
   {
+    name: "button-gradient",
+    title: "Gradient Button",
+    category: "UI",
+    description: "A sleek button featuring a glowing animated gradient border.",
+  },
+  {
+    name: "button-flicker",
+    title: "Flicker Button",
+    category: "UI",
+    description: "A cyber-styled button with a flickering neon transparency effect.",
+  },
+  {
+    name: "button-shine",
+    title: "Shine Button",
+    category: "UI",
+    description: "A clean button featuring a continuous diagonal shine animation.",
+  },
+  {
     name: "card",
     title: "Card",
     category: "UI",

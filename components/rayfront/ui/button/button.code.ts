@@ -10,4 +10,5 @@ export function Example() {
       <Button variant="destructive">Destructive</Button>
     </div>
   )
-}`
+}
+`
