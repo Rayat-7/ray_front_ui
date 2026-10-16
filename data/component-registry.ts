@@ -19,12 +19,6 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     description: "A sleek button featuring a glowing animated gradient border.",
   },
   {
-    name: "button-flicker",
-    title: "Flicker Button",
-    category: "UI",
-    description: "A cyber-styled button with a flickering neon transparency effect.",
-  },
-  {
     name: "button-shine",
     title: "Shine Button",
     category: "UI",

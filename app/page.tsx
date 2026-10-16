@@ -2,7 +2,7 @@ import Link from "next/link"
 import { PageContainer } from "@/components/site/page-container"
 import { ArrowRight, Blocks, Box, LayoutTemplate, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
-
+import Grainient from "@/components/site/gradient"
 const features = [
   {
     icon: Box,
@@ -38,27 +38,46 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative border-b border-border">
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-          }}
-        />
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="absolute inset-0 z-0" style={{ width: '100%', height: '600px' }}>
+          <Grainient
+    colors={["#03045e","#0077b6","#001233","#0077b6","#03045e"]}
+    angle={55}
+    flow={0.8}
+    silk={0.35}
+    grainAmount={0.08}
+    type="linear"
+    bands={1}
+    softness={1}
+    scale={1}
+    speed={1}
+    grainSize={1.2}
+    grainAnimated
+    contrast={1}
+    saturation={1}
+    variation={0}
+    interactive
+    stir={1}
+    clickSwirl
+    intro
+    lightMode={false}
+/>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
+
         <PageContainer className="relative py-20 sm:py-32">
           <div className="flex flex-col items-center text-center">
             <div className="mb-6 flex items-center border border-border px-3 py-1.5">
               <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
-                v0.1.0 — Developer Preview
+                v0.2.0 — Developer Preview
               </span>
             </div>
             <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
               Build interfaces
               <br />
-              <span className="text-muted-foreground">not from scratch</span>
+              <span className="text-foreground">not from scratch</span>
             </h1>
-            <p className="mt-6 max-w-lg text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-6 max-w-lg text-sm leading-relaxed text-foreground/70">
               A curated collection of React components, landing page blocks, and
               AI-powered design tools. Sharp edges. Mono typography. Zero bloat.
             </p>

@@ -1,22 +1,21 @@
 "use client"
 
+
+
 import { PageContainer } from "@/components/site/page-container"
 import { blockRegistry } from "@/data/block-registry"
+import { componentSourceMap } from "@/data/component-source"
 import { ComponentPreview } from "@/features/component-viewer/component-preview"
-import { ComponentCode } from "@/features/component-viewer/component-code"
+import { ComponentActions } from "@/features/component-viewer/component-actions"
 
 import { HeroBasic } from "@/components/rayfront/blocks/hero/hero-basic"
 import { PricingBasic } from "@/components/rayfront/blocks/pricing/pricing-basic"
 import { TestimonialBasic } from "@/components/rayfront/blocks/testimonials/testimonial-basic"
 
-import { heroBasicCode } from "@/components/rayfront/blocks/hero/hero-basic.code"
-import { pricingBasicCode } from "@/components/rayfront/blocks/pricing/pricing-basic.code"
-import { testimonialBasicCode } from "@/components/rayfront/blocks/testimonials/testimonial-basic.code"
-
-const blockDemos: Record<string, { demo: React.ReactNode; code: string }> = {
-  "hero-basic": { demo: <HeroBasic />, code: heroBasicCode },
-  "pricing-basic": { demo: <PricingBasic />, code: pricingBasicCode },
-  "testimonial-basic": { demo: <TestimonialBasic />, code: testimonialBasicCode },
+const blockDemos: Record<string, { demo: React.ReactNode }> = {
+  "hero-basic": { demo: <HeroBasic /> },
+  "pricing-basic": { demo: <PricingBasic /> },
+  "testimonial-basic": { demo: <TestimonialBasic /> },
 }
 
 export default function BlocksPage() {
@@ -42,16 +41,25 @@ export default function BlocksPage() {
             {blockRegistry.map((block) => {
               const data = blockDemos[block.name]
               if (!data) return null
+              const source = componentSourceMap[block.name]
               return (
                 <div key={block.name} className="space-y-4">
-                  <div>
-                    <h2 className="text-sm font-bold uppercase tracking-wider text-foreground">
-                      {block.title}
-                    </h2>
-                    <p className="mt-1 text-xs text-muted-foreground">{block.description}</p>
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h2 className="text-sm font-bold uppercase tracking-wider text-foreground">
+                        {block.title}
+                      </h2>
+                      <p className="mt-1 text-xs text-muted-foreground">{block.description}</p>
+                    </div>
+                    {source && (
+                      <ComponentActions
+                        usage={source.usage}
+                        code={source.code}
+                        componentName={source.componentName}
+                      />
+                    )}
                   </div>
                   <ComponentPreview title={block.title}>{data.demo}</ComponentPreview>
-                  <ComponentCode code={data.code} />
                 </div>
               )
             })}

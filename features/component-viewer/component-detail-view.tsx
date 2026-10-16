@@ -1,46 +1,37 @@
 "use client"
 
-import { ComponentPreview } from "./component-preview"
-import { ComponentCode } from "./component-code"
+import { useState } from "react"
+import { Code } from "lucide-react"
 
-// UI demos
+import { ComponentPreview } from "./component-preview"
+import { ComponentSheet } from "./component-sheet"
+import { CopyPromptButton } from "./copy-prompt-button"
+import { componentSourceMap } from "@/data/component-source"
+
 import { ButtonDemo } from "@/components/rayfront/ui/button/button.demo"
 import { CardDemo } from "@/components/rayfront/ui/card/card.demo"
 import { BadgeDemo } from "@/components/rayfront/ui/badge/badge.demo"
 import { ButtonGradientDemo } from "@/components/rayfront/ui/button-gradient/button-gradient.demo"
-import { ButtonFlickerDemo } from "@/components/rayfront/ui/button-flicker/button-flicker.demo"
 import { ButtonShineDemo } from "@/components/rayfront/ui/button-shine/button-shine.demo"
-// Block demos
 import { HeroBasicDemo } from "@/components/rayfront/blocks/hero/hero-basic.demo"
 import { PricingBasicDemo } from "@/components/rayfront/blocks/pricing/pricing-basic.demo"
 import { TestimonialBasicDemo } from "@/components/rayfront/blocks/testimonials/testimonial-basic.demo"
 
-// UI code
-import { buttonCode } from "@/components/rayfront/ui/button/button.code"
-import { cardCode } from "@/components/rayfront/ui/card/card.code"
-import { badgeCode } from "@/components/rayfront/ui/badge/badge.code"
-import { buttonGradientCode } from "@/components/rayfront/ui/button-gradient/button-gradient.code"
-import { buttonFlickerCode } from "@/components/rayfront/ui/button-flicker/button-flicker.code"
-import { buttonShineCode } from "@/components/rayfront/ui/button-shine/button-shine.code"
-// Block code
-import { heroBasicCode } from "@/components/rayfront/blocks/hero/hero-basic.code"
-import { pricingBasicCode } from "@/components/rayfront/blocks/pricing/pricing-basic.code"
-import { testimonialBasicCode } from "@/components/rayfront/blocks/testimonials/testimonial-basic.code"
-
-const demoMap: Record<string, { demo: React.ReactNode; code: string }> = {
-  button: { demo: <ButtonDemo />, code: buttonCode },
-  card: { demo: <CardDemo />, code: cardCode },
-  badge: { demo: <BadgeDemo />, code: badgeCode },
-  "button-gradient": { demo: <ButtonGradientDemo />, code: buttonGradientCode },
-  "button-flicker": { demo: <ButtonFlickerDemo />, code: buttonFlickerCode },
-  "button-shine": { demo: <ButtonShineDemo />, code: buttonShineCode },
-  "hero-basic": { demo: <HeroBasicDemo />, code: heroBasicCode },
-  "pricing-basic": { demo: <PricingBasicDemo />, code: pricingBasicCode },
-  "testimonial-basic": { demo: <TestimonialBasicDemo />, code: testimonialBasicCode },
+const demoMap: Record<string, { demo: React.ReactNode }> = {
+  button: { demo: <ButtonDemo /> },
+  card: { demo: <CardDemo /> },
+  badge: { demo: <BadgeDemo /> },
+  "button-gradient": { demo: <ButtonGradientDemo /> },
+  "button-shine": { demo: <ButtonShineDemo /> },
+  "hero-basic": { demo: <HeroBasicDemo /> },
+  "pricing-basic": { demo: <PricingBasicDemo /> },
+  "testimonial-basic": { demo: <TestimonialBasicDemo /> },
 }
 
 export function ComponentDetailView({ name }: { name: string }) {
   const entry = demoMap[name]
+  const source = componentSourceMap[name]
+  const [sheetOpen, setSheetOpen] = useState(false)
 
   if (!entry) {
     return (
@@ -51,9 +42,15 @@ export function ComponentDetailView({ name }: { name: string }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <ComponentPreview>{entry.demo}</ComponentPreview>
-      <ComponentCode code={entry.code} />
+
+      <ComponentSheet
+        open={sheetOpen}
+        onOpenChange={setSheetOpen}
+        usage={source?.usage}
+        code={source?.code}
+      />
     </div>
   )
 }
